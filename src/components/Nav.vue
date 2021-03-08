@@ -1,5 +1,5 @@
 <template>
-  <div class="nav">
+  <nav>
     <router-link to="/labels">
       <Icon name="label"/>标签
     </router-link>
@@ -9,7 +9,7 @@
     <router-link to="/statistics">
       <Icon name="statistics"/>统计
     </router-link>
-  </div>
+  </nav>
 </template>
 
 <script lang="ts">
@@ -19,8 +19,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.nav-wrapper{
-
-}
+  nav{
+    display: flex;
+    box-shadow: 0 0 5px rgba(0,0,0,.25);
+    >a{
+      width: 33.333%;
+      display: flex;
+      justify-content: space-between;
+      text-align: center;
+      flex-direction: column;
+      align-items: center;
+      .icon{
+        width: 25px;
+        height: 25px;
+      }
+    }
+  }
 
 </style>
