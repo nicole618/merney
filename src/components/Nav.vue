@@ -1,12 +1,12 @@
 <template>
   <nav>
-    <router-link to="/labels">
+    <router-link to="/labels" active-class="selected">
       <Icon name="label"/>标签
     </router-link>
-    <router-link to="/money">
+    <router-link to="/money" active-class="selected">
       <Icon name="money"/>记一笔
     </router-link>
-    <router-link to="/statistics">
+    <router-link to="/statistics" active-class="selected">
       <Icon name="statistics"/>统计
     </router-link>
   </nav>
@@ -22,6 +22,9 @@ export default {
   nav{
     display: flex;
     box-shadow: 0 0 5px rgba(0,0,0,.25);
+    font-size: 15px;
+    color: #999;
+    padding: 2px 0;
     >a{
       width: 33.333%;
       display: flex;
@@ -29,9 +32,12 @@ export default {
       text-align: center;
       flex-direction: column;
       align-items: center;
-      .icon{
+      >.icon{
         width: 25px;
         height: 25px;
+      }
+      &.selected{
+        color: #000;
       }
     }
   }
