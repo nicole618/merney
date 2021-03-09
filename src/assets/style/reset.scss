@@ -23,3 +23,15 @@ a{
   color: inherit;
   font: inherit;
 }
+button,input{
+  font: inherit;
+  color: inherit;
+}
+.oneLine{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+input:focus{
+  outline: none;
+}

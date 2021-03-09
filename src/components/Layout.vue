@@ -22,5 +22,7 @@
 .content {
   flex-grow: 1;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 </style>

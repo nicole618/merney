@@ -24,7 +24,7 @@ export default {
     display: flex;
     box-shadow: 0 0 5px rgba(0,0,0,.25);
     font-size: 15px;
-    color: #999;
+    color: $color-lowLight;
     padding: 2px 0;
     >a{
       width: 33.333%;
