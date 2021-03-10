@@ -2,7 +2,7 @@
   <div class="tags">
 
     <ol class="current">
-      <li v-for="tag in dateSource" :key="tag.id" :class="selectedTags === tag.id ? 'selected':''" @click="select(tag.id)">
+      <li v-for="tag in dateSource" :key="tag.id" :class="value !==null && value.id === tag.id ? 'selected':''" @click="select(tag)">
         <div class="tagIcon">
           <Icon :name="tag.name"/>
         </div>
@@ -26,9 +26,15 @@ import {Component,Prop} from 'vue-property-decorator';
 @Component
 export default class Tags extends Vue{
   @Prop() dateSource: string[] | undefined;
-  selectedTags: string = '';
-  select(tagId: string){
-    this.selectedTags !== tagId ? this.selectedTags = tagId :this.selectedTags = '';
+  @Prop() readonly value!: Tag;
+  select(tag: Tag){
+      if(this.value && this.value.id !== tag.id){
+       this.$emit('update:value',tag)
+      } else{
+        this.$emit('update:value',null)
+      }
+
+    this.$emit('update:value',tag)
   }
 }
 </script>

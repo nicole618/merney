@@ -1,30 +1,25 @@
 <template>
 <div>
-  <label class="date textInput"><span><Icon name="date"/>日期：</span>
-    <el-date-picker
-        v-model="time"
-        type="date"
-        class="myDate"
-        format="yyyy-MM-dd"
-        placeholder="请选择日期"
-    >
-    </el-date-picker>
-  </label>
   <label class="notes textInput"><span><Icon name="remark"/>备注：</span><input type="text" v-model="value" placeholder="请输入备注"></label>
 </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import {Component, Prop, Watch} from 'vue-property-decorator';
 @Component
 export default class NotesDate extends Vue{
-  time: Date | string = '';
-  value: string = '';
+  value: string ='';
+  @Watch('value')
+  onValueChanged(value: string){
+    this.$emit('update:value',value)
 }
+}
+
+
 </script>
 
-<style lang="scss" >
+<style lang="scss" scoped >
 @import "~@/assets/style/helper.scss";
 .textInput {
   background: $color-Light;
