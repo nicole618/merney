@@ -4,7 +4,7 @@ type Tag = {
   value: string;
 
 }
-  type Record = {
+  type RecordItem = {
   tags:  Tag | null;
   notes: string;
   type: string;
