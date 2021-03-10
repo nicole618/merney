@@ -2,29 +2,11 @@
   <div class="tags">
 
     <ol class="current">
-      <li>
+      <li v-for="tag in dateSource" :key="tag.id" :class="selectedTags === tag.id ? 'selected':''" @click="select(tag.id)">
         <div class="tagIcon">
-          <Icon name="clothing"/>
+          <Icon :name="tag.name"/>
         </div>
-        <span class="oneLine">衣</span>
-      </li>
-      <li>
-        <div class="tagIcon">
-          <Icon name="food"/>
-        </div>
-        <span class="oneLine">食</span>
-      </li>
-      <li>
-        <div class="tagIcon">
-          <Icon name="live"/>
-        </div>
-        <span class="oneLine">住</span>
-      </li>
-      <li>
-        <div class="tagIcon">
-          <Icon name="travel"/>
-        </div>
-        <span class="oneLine">行</span>
+        <span>{{tag.value}}</span>
       </li>
       <li>
         <div class="tagIcon">
@@ -38,13 +20,22 @@
 </template>
 
 <script lang="ts">
-export default {
-name: "Tags.vue"
+import  Vue from 'vue';
+import {Component,Prop} from 'vue-property-decorator';
+
+@Component
+export default class Tags extends Vue{
+  @Prop() dateSource: string[] | undefined;
+  selectedTags: string = '';
+  select(tagId: string){
+    this.selectedTags !== tagId ? this.selectedTags = tagId :this.selectedTags = '';
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
+@import "~@/assets/style/animation.scss";
 .tags {
   padding: 10px;
   background: white;
@@ -76,8 +67,19 @@ name: "Tags.vue"
           height: 60%;
         }
       }
-      &.select {
-        background: $color-highLight;
+      &.selected {
+        color: $color-highLight;
+        >.tagIcon{
+          background: $color-highLight;
+          color: white;
+          >.icon{
+            -webkit-animation: icon-bounce 0.5s alternate;
+            -moz-animation: icon-bounce 0.5s alternate;
+            -o-animation: icon-bounce 0.5s alternate;
+            animation: icon-bounce  0.5s alternate;
+          }
+        }
+
       }
     }
   }
@@ -90,6 +92,44 @@ name: "Tags.vue"
       background: transparent;
       border-bottom: 1px solid $border-color;
       padding: 0 4px;
+    }
+  }
+}
+@mixin  keyframes ($bounce) {
+  @keyframes #{$bounce} {
+    0%, 100% {
+      -moz-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+
+    25% {
+      -moz-transform: rotate(15deg);
+      -ms-transform: rotate(15deg);
+      -webkit-transform: rotate(15deg);
+      transform: rotate(15deg);
+    }
+
+    50% {
+      -moz-transform: rotate(-15deg);
+      -ms-transform: rotate(-15deg);
+      -webkit-transform: rotate(-15deg);
+      transform: rotate(-15deg);
+    }
+
+    75% {
+      -moz-transform: rotate(5deg);
+      -ms-transform: rotate(5deg);
+      -webkit-transform: rotate(5deg);
+      transform: rotate(5deg);
+    }
+
+    85% {
+      -moz-transform: rotate(-5deg);
+      -ms-transform: rotate(-5deg);
+      -webkit-transform: rotate(-5deg);
+      transform: rotate(-5deg);
     }
   }
 }
