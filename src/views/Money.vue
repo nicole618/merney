@@ -5,9 +5,6 @@
       <Tags/>
       <NotesDate/>
       <NumberPad/>
-
-
-
     </Layout>
   </div>
 </template>
