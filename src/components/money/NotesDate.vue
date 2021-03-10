@@ -2,23 +2,25 @@
 <div>
   <label class="date textInput"><span><Icon name="date"/>日期：</span>
     <el-date-picker
-        v-model="value1"
+        v-model="time"
         type="date"
-        class="myDate">
+        class="myDate"
+        format="yyyy-MM-dd"
+        placeholder="请选择日期"
+    >
     </el-date-picker>
   </label>
-  <label class="notes textInput"><span><Icon name="remark"/>备注：</span><input type="text"></label>
+  <label class="notes textInput"><span><Icon name="remark"/>备注：</span><input type="text" v-model="value" placeholder="请输入备注"></label>
 </div>
 </template>
 
 <script lang="ts">
-export default {
-name: "notesDate",
-  data() {
-    return {
-      value1: '',
-    };
-  }
+import Vue from 'vue';
+import {Component} from 'vue-property-decorator';
+@Component
+export default class NotesDate extends Vue{
+  time: Date | string = '';
+  value: string = '';
 }
 </script>
 
@@ -45,6 +47,18 @@ name: "notesDate",
     border: none;
     flex-grow: 1;
     background: transparent;
+    &::placeholder {
+      color: #999;
+    }
+    &::-webkit-input-placeholder {
+      color: #999;
+    }
+    &:-moz-placeholder {
+      color: #999;
+    }
+    &:-ms-input-placeholder {
+      color: #999;
+    }
   }
   .myDate{
     flex-grow: 1;
@@ -55,6 +69,18 @@ name: "notesDate",
       padding: 0px;
       &:focus{
         outline: none;
+      }
+      &::placeholder {
+        color: #999;
+      }
+      &::-webkit-input-placeholder {
+        color: #999;
+      }
+      &:-moz-placeholder {
+        color: #999;
+      }
+      &:-ms-input-placeholder {
+        color: #999;
       }
     }
     .el-input__prefix{
