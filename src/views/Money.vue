@@ -1,11 +1,10 @@
 <template>
   <div>
     <Layout>
-      {{record}}
       <Types :value.sync="record.type"/>
       <Tags :value.sync="record.tags" :date-source="tagsTye"/>
       <DateTime :value.sync="record.dateTime"/>
-      <Notes @update:value="onUpdateNotes" :value="record.notes"/>
+      <Notes  :value.sync="record.notes"/>
       <NumberPad :value="record.amount" @update:value="onUpdateAmount" @submit="saveRecord"/>
     </Layout>
   </div>

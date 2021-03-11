@@ -1,18 +1,22 @@
 <template>
 <div>
-  <label class="notes textInput"><span><Icon name="remark"/>备注：</span><input type="text" v-model="value" placeholder="请输入备注"></label>
+  <label class="notes textInput"><span><Icon name="remark"/>备注：</span><input type="text" :value="value"
+                                                                             @change="onValueChanged($event)" placeholder="请输入备注"></label>
 </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Prop, Watch} from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
+
 @Component
 export default class NotesDate extends Vue{
-  value: string ='';
-  @Watch('value')
-  onValueChanged(value: string){
-    this.$emit('update:value',value)
+  @Prop(String) readonly value!: string;
+
+  onValueChanged($event: Event){
+    if($event.target !== null){
+      this.$emit('update:value', ($event.target as HTMLInputElement).value)
+    }
 }
 }
 
@@ -61,7 +65,7 @@ export default class NotesDate extends Vue{
     input.el-input__inner{
       background: none;
       border: none;
-      padding: 0px;
+      padding: 0;
       &:focus{
         outline: none;
       }
