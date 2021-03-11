@@ -27,7 +27,7 @@ tagListModel.fetch();
            })
 export default class Money extends Vue {
   tags = tagListModel.data;
-  recordListModel = recordListModel.fetch();
+  recordList = recordListModel.fetch();
   record: RecordItem = {tags: null, notes: '', dateTime: null, type: '-', amount: 0};
   tagsTye = this.tags.filter(tag=>tag.type === this.record.type)
   @Watch('record.type')

@@ -1,12 +1,13 @@
 const localStorageKeyName: string = 'tagList';
-type tagListModel = {
+type TagListModel = {
   data: Tag[];
   fetch: () => Tag[];
   save: () => void;
   getIcon: () => string[];
   getDefaultTag: () => Tag[];
+  addTag: (tag: Tag) => Tag;
 }
-const tagListModel = {
+const tagListModel: TagListModel = {
   data: [],
   fetch(){
     this.data = JSON.parse(window.localStorage.getItem(localStorageKeyName)|| JSON.stringify(this.getDefaultTag()));
@@ -14,6 +15,11 @@ const tagListModel = {
   },
   save() {
     window.localStorage.setItem(localStorageKeyName,JSON.stringify(this.data));
+  },
+  addTag(tag){
+    this.data.push(tag);
+    this.save();
+    return tag;
   },
   getIcon(){
     return ['clothing','food','live','travel','wages','stock','fiscal','lottery',
