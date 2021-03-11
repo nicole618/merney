@@ -6,10 +6,10 @@
         <li v-for="tag in tagsType" :key="tag.id">
           <div class="tagLeft">
             <Icon :name="tag.name"/>
-            <span>{{tag.value}}</span>
+            <span>{{tag.textValue}}</span>
           </div>
           <div class="tagRight">
-            <router-link to="/labels/edit/:tag.id"><el-button type="primary" icon="el-icon-edit" circle></el-button></router-link>
+            <router-link :to="{path:'/labels/editAdd/:'+tag.id, query:{typeName:typeName}}"><el-button type="primary" icon="el-icon-edit" circle></el-button></router-link>
             <el-popconfirm title="确认删除此标签吗？" @confirm="deleteTag(tag.id)"
             ><el-button type="danger" icon="el-icon-delete" circle slot="reference"></el-button>
             </el-popconfirm>
@@ -17,7 +17,7 @@
         </li>
       </ol>
       <div class="addTag">
-        <router-link to="/labels/add">新增{{typeName}}标签</router-link>
+        <router-link :to="{path:'/labels/editAdd', query:{typeName:typeName}}" >新增{{typeName}}标签</router-link>
       </div>
 
     </Layout>

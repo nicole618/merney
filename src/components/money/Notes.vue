@@ -1,7 +1,8 @@
 <template>
 <div>
-  <label class="notes textInput"><span><Icon name="remark"/>{{noteName}}</span><input type="text" :value="value"
-                                                                             @change="onValueChanged($event)" :placeholder="placeholder"></label>
+  <label class="notes textInput"><span><Icon name="remark"/>{{noteName}}</span>
+    <input type="text" :value="value"
+           @change="onValueChanged($event)" :placeholder="placeholder" :maxlength="maxlength"></label>
 </div>
 </template>
 
@@ -14,6 +15,7 @@ export default class NotesDate extends Vue{
   @Prop(String) readonly value!: string;
   @Prop(String) readonly placeholder!: string;
   @Prop(String) readonly noteName!: string;
+  @Prop(String) readonly maxlength!: string;
   onValueChanged($event: Event){
     if($event.target !== null){
       this.$emit('update:value', ($event.target as HTMLInputElement).value)

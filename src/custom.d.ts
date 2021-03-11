@@ -1,7 +1,7 @@
 type Tag = {
   id: number;
   name: string;
-  value: string;
+  textValue: string;
   type: string;
 }
   type RecordItem = {

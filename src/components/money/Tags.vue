@@ -5,7 +5,7 @@
         <div class="tagIcon">
           <Icon :name="tag.name"/>
         </div>
-        <span>{{tag.value}}</span>
+        <span>{{tag.textValue}}</span>
       </li>
 
       <li>

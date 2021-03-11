@@ -6,6 +6,7 @@ type TagListModel = {
   getIcon: () => string[];
   getDefaultTag: () => Tag[];
   addTag: (tag: Tag) => Tag;
+  findTag: (id: number) => Tag;
   delete: (id: number) => string;
 }
 const tagListModel: TagListModel = {
@@ -32,6 +33,9 @@ const tagListModel: TagListModel = {
     this.save();
     return tag;
   },
+  findTag(id){
+    return this.data.filter(tag => tag.id === id)[0];
+  },
   getIcon(){
     return ['clothing','food','live','travel','wages','stock','fiscal','lottery',
       'custom1','custom2','custom3','custom4','custom5','custom6','custom7','custom8'];
@@ -41,49 +45,49 @@ const tagListModel: TagListModel = {
       {
         id: 1,
         name: 'clothing',
-        value: '衣',
+        textValue: '衣',
         type: '-'
       },
       {
         id: 2,
         name: 'food',
-        value: '食',
+        textValue: '食',
         type: '-'
       },
       {
         id: 3,
         name: 'live',
-        value: '住',
+        textValue: '住',
         type: '-'
       },
       {
         id: 4,
         name: 'travel',
-        value: '行',
+        textValue: '行',
         type: '-'
       },
       {
         id: 5,
         name: 'wages',
-        value: '工资',
+        textValue: '工资',
         type: '+'
       },
       {
         id: 6,
         name: 'stock',
-        value: '股票',
+        textValue: '股票',
         type: '+'
       },
       {
         id: 7,
         name: 'fiscal',
-        value: '理财',
+        textValue: '理财',
         type: '+'
       },
       {
         id: 8,
         name: 'lottery',
-        value: '彩票',
+        textValue: '彩票',
         type: '+'
       }
     ]
