@@ -2,8 +2,13 @@
   <div>
     <Layout>
       <Types :value.sync="type"/>
-      <ol class="tagList">
-
+      <ol class="tagList hideScroll">
+        <li v-for="tag in tagsType" :key="tag.id">
+          <div class="tagIcon">
+            <Icon :name="tag.name"/>
+          </div>
+          <span>{{tag.value}}</span>
+        </li>
       </ol>
     </Layout>
   </div>
@@ -76,6 +81,8 @@ export default class Labels extends Vue{
 
 <style lang="scss" scoped>
 .tagList{
+  flex-grow: 1;
+
 
 }
 </style>
