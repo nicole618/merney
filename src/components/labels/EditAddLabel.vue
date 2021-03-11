@@ -13,7 +13,9 @@
         <Icon :name="icon"/>
       </li>
     </ol>
-    <button>{{editAdd}}</button>
+    <div class="flexCenter">
+      <Button @click="editOrAdd">{{ editAdd }}</Button>
+    </div>
   </Layout>
 </template>
 
@@ -22,9 +24,11 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Notes from '@/components/money/Notes.vue';
 import tagListModel from '@/models/tagListModel';
+import Button from '@/components/Button.vue';
+import {createTagId} from '@/lib/createId';
 
 @Component({
-             components: {Notes}
+             components: {Button, Notes}
            })
 export default class AddLabel extends Vue {
   myTag: Tag = {id: -1, name: '', textValue: '', type: ''};
@@ -62,7 +66,23 @@ export default class AddLabel extends Vue {
   }
 
   goBack() {
-    this.$router.push('/labels');
+    this.$router.go(-1);
+  }
+
+  editOrAdd() {
+    if (this.myTag.name === '' || this.myTag.textValue === '') {
+      this.$message('标签名或标签图标不能为空');
+      return;
+    }
+    if (this.editAdd === '编辑') {
+      tagListModel.updateTag(this.myTag);
+      this.goBack();
+    } else if (this.editAdd === '新增') {
+      this.myTag.id = createTagId();
+      tagListModel.addTag(this.myTag);
+      this.goBack();
+    }
+
   }
 
 }
@@ -78,12 +98,15 @@ header {
   align-items: center;
   padding: 10px 16px;
   background: $color-lowLight;
+
   p {
     font-size: 20px;
   }
+
   .icon {
     width: 25px;
     height: 25px;
+
     &.rightIcon {
       visibility: hidden;
     }
@@ -100,6 +123,7 @@ header {
   flex-wrap: wrap;
   flex-grow: 1;
   align-content: flex-start;
+
   li {
     width: 22%;
     display: flex;

@@ -8,6 +8,7 @@ type TagListModel = {
   addTag: (tag: Tag) => Tag;
   findTag: (id: number) => Tag;
   delete: (id: number) => string;
+  updateTag: (tag: Tag) => void;
 }
 const tagListModel: TagListModel = {
   data: [],
@@ -27,6 +28,12 @@ const tagListModel: TagListModel = {
       this.save();
       return '删除成功';
     }
+  },
+  updateTag(tag){
+    const oldTag = this.findTag(tag.id);
+    oldTag.name = tag.name;
+    oldTag.textValue = tag.textValue;
+    this.save();
   },
   addTag(tag){
     this.data.push(tag);
