@@ -10,9 +10,11 @@
       </li>
       <li>
         <div class="tagIcon">
+          <router-link to="/labels">
           <Icon name="add"/>
+          </router-link>
         </div>
-        <span>新增分类</span>
+        <span><router-link to="/labels">编辑分类</router-link></span>
       </li>
 
     </ol>
@@ -69,7 +71,13 @@ export default class Tags extends Vue{
         justify-content: center;
         overflow: hidden;
         margin-bottom: 2px;
-        >.icon{
+        a{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+        }
+        .icon{
           width: auto;
           height: 60%;
         }
@@ -79,7 +87,7 @@ export default class Tags extends Vue{
         >.tagIcon{
           background: $color-highLight;
           color: white;
-          >.icon{
+          .icon{
             -webkit-animation: icon-bounce 0.5s alternate;
             -moz-animation: icon-bounce 0.5s alternate;
             -o-animation: icon-bounce 0.5s alternate;
