@@ -36,6 +36,7 @@ export default class Tags extends Vue{
 
     this.$emit('update:value',tag)
   }
+
 }
 </script>
 

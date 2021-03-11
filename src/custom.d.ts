@@ -2,7 +2,7 @@ type Tag = {
   id: number;
   name: string;
   value: string;
-
+  type: string;
 }
   type RecordItem = {
   tags:  Tag | null;
