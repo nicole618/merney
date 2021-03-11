@@ -75,5 +75,7 @@ export default class Labels extends Vue{
 </script>
 
 <style lang="scss" scoped>
+.tagList{
 
+}
 </style>

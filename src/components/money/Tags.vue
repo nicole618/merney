@@ -1,6 +1,5 @@
 <template>
-  <div class="tags">
-
+  <div class="tags hideScroll">
     <ol class="current">
       <li v-for="tag in dateSource" :key="tag.id" :class="value !==null && value.id === tag.id ? 'selected':''" @click="select(tag)">
         <div class="tagIcon">
@@ -8,6 +7,7 @@
         </div>
         <span>{{tag.value}}</span>
       </li>
+
       <li>
         <div class="tagIcon">
           <router-link to="/labels">
@@ -49,12 +49,6 @@ export default class Tags extends Vue{
   padding: 10px;
   background: white;
   flex-grow: 1;
-  overflow: scroll;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  &::-webkit-scrollbar{
-    display: none;
-  }
   > .current {
     display: flex;
     flex-wrap: wrap;
