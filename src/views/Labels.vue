@@ -29,62 +29,16 @@
 import Types from '@/components/normal/Types.vue';
 import Vue from 'vue';
 import {Component, Watch} from 'vue-property-decorator';
+import tagListModel from '@/models/tagListModel';
+
+tagListModel.fetch;
 
 @Component({
              components: {Types},
            })
 export default class Labels extends Vue {
   type: string = '-';
-  tags: Tag[] = [
-    {
-      id: 1,
-      name: 'clothing',
-      value: '衣',
-      type: '-'
-    },
-    {
-      id: 2,
-      name: 'food',
-      value: '食',
-      type: '-'
-    },
-    {
-      id: 3,
-      name: 'live',
-      value: '住',
-      type: '-'
-    },
-    {
-      id: 4,
-      name: 'travel',
-      value: '行',
-      type: '-'
-    },
-    {
-      id: 5,
-      name: 'wages',
-      value: '工资',
-      type: '+'
-    },
-    {
-      id: 6,
-      name: 'stock',
-      value: '股票',
-      type: '+'
-    },
-    {
-      id: 7,
-      name: 'fiscal',
-      value: '理财',
-      type: '+'
-    },
-    {
-      id: 8,
-      name: 'lottery',
-      value: '彩票',
-      type: '+'
-    }
-  ];
+  tags: Tag[] = tagListModel.data;
   tagsType = this.tags.filter(tag => tag.type === this.type);
   visible: boolean = false;
   typeName = '支出';

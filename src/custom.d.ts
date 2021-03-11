@@ -5,6 +5,7 @@ type Tag = {
   type: string;
 }
   type RecordItem = {
+  id?: number;
   tags:  Tag | null;
   notes: string;
   type: string;

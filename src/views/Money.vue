@@ -4,7 +4,7 @@
       <Types :value.sync="record.type"/>
       <Tags :value.sync="record.tags" :date-source="tagsTye"/>
       <DateTime :value.sync="record.dateTime"/>
-      <Notes  :value.sync="record.notes"/>
+      <Notes  :value.sync="record.notes" noteName="备注：" placeholder="请输入备注"/>
       <NumberPad :value="record.amount" @update:value="onUpdateAmount" @submit="saveRecord"/>
     </Layout>
   </div>
@@ -20,6 +20,7 @@ import {Component, Watch} from 'vue-property-decorator';
 import DateTime from '@/components/money/DateTime.vue';
 import recordListModel from '@/models/recordListModel';
 import tagListModel from '@/models/tagListModel';
+import {createRecordId} from '@/lib/createId'
 
 tagListModel.fetch();
 @Component({
@@ -41,6 +42,7 @@ export default class Money extends Vue {
 
   saveRecord() {
     if (this.record.dateTime === null) this.record.dateTime = new Date();
+    this.record.id = createRecordId();
     const record2 = recordListModel.clone(this.record);
     this.recordList.push(record2);
     this.record = {tags: null, notes: '', dateTime: null, type: '-', amount: 0};

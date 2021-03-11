@@ -1,7 +1,7 @@
 <template>
 <div>
-  <label class="notes textInput"><span><Icon name="remark"/>备注：</span><input type="text" :value="value"
-                                                                             @change="onValueChanged($event)" placeholder="请输入备注"></label>
+  <label class="notes textInput"><span><Icon name="remark"/>{{noteName}}</span><input type="text" :value="value"
+                                                                             @change="onValueChanged($event)" :placeholder="placeholder"></label>
 </div>
 </template>
 
@@ -12,7 +12,8 @@ import {Component, Prop} from 'vue-property-decorator';
 @Component
 export default class NotesDate extends Vue{
   @Prop(String) readonly value!: string;
-
+  @Prop(String) readonly placeholder!: string;
+  @Prop(String) readonly noteName!: string;
   onValueChanged($event: Event){
     if($event.target !== null){
       this.$emit('update:value', ($event.target as HTMLInputElement).value)
