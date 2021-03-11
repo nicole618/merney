@@ -49,6 +49,12 @@ export default class Tags extends Vue{
   padding: 10px;
   background: white;
   flex-grow: 1;
+  overflow: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar{
+    display: none;
+  }
   > .current {
     display: flex;
     flex-wrap: wrap;
