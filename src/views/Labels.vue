@@ -11,7 +11,7 @@
 
 <script lang="ts">
 
-import Types from '@/components/money/Types.vue';
+import Types from '@/components/normal/Types.vue';
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 
