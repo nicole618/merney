@@ -1,5 +1,9 @@
 <template>
-<div></div>
+<div class="editAdd">
+  <header>
+    {{}}标签
+  </header>
+</div>
 </template>
 
 <script lang="ts">

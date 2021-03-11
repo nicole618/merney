@@ -44,7 +44,6 @@ export default class Tags extends Vue{
 
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
-@import "~@/assets/style/animation.scss";
 .tags {
   padding: 10px;
   background: white;
@@ -111,42 +110,5 @@ export default class Tags extends Vue{
     }
   }
 }
-@mixin  keyframes ($bounce) {
-  @keyframes #{$bounce} {
-    0%, 100% {
-      -moz-transform: rotate(0deg);
-      -ms-transform: rotate(0deg);
-      -webkit-transform: rotate(0deg);
-      transform: rotate(0deg);
-    }
 
-    25% {
-      -moz-transform: rotate(15deg);
-      -ms-transform: rotate(15deg);
-      -webkit-transform: rotate(15deg);
-      transform: rotate(15deg);
-    }
-
-    50% {
-      -moz-transform: rotate(-15deg);
-      -ms-transform: rotate(-15deg);
-      -webkit-transform: rotate(-15deg);
-      transform: rotate(-15deg);
-    }
-
-    75% {
-      -moz-transform: rotate(5deg);
-      -ms-transform: rotate(5deg);
-      -webkit-transform: rotate(5deg);
-      transform: rotate(5deg);
-    }
-
-    85% {
-      -moz-transform: rotate(-5deg);
-      -ms-transform: rotate(-5deg);
-      -webkit-transform: rotate(-5deg);
-      transform: rotate(-5deg);
-    }
-  }
-}
 </style>

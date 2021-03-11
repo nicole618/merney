@@ -117,25 +117,5 @@ export default class Labels extends Vue {
     }
   }
 }
-body{
- .el-popconfirm__main{
-  font-size: 14px;
-   margin-bottom: 5px;
-}
- .el-button--text{
-  color: $color-lowLight;
-  &:hover{
-    color: $color-highLight;
-  }
-}
- .el-button--primary{
-  background: $color-lowLight;
-  border: none;
-  &:hover{
-    background: $color-highLight;
-  }
-}
-  .el-button--primary{
-}
-}
+
 </style>
