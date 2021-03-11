@@ -6,6 +6,7 @@ type TagListModel = {
   getIcon: () => string[];
   getDefaultTag: () => Tag[];
   addTag: (tag: Tag) => Tag;
+  delete: (id: number) => string;
 }
 const tagListModel: TagListModel = {
   data: [],
@@ -15,6 +16,16 @@ const tagListModel: TagListModel = {
   },
   save() {
     window.localStorage.setItem(localStorageKeyName,JSON.stringify(this.data));
+  },
+  delete(id) {
+    const tagIds = this.data.map(tag => tag.id === id);
+    if (tagIds.length === 0){
+      return '该标签不存在';
+    }else{
+      this.data = this.data.filter(tag => tag.id !== id);
+      this.save();
+      return '删除成功';
+    }
   },
   addTag(tag){
     this.data.push(tag);

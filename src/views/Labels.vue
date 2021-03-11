@@ -10,7 +10,7 @@
           </div>
           <div class="tagRight">
             <router-link to="/labels/edit/:tag.id"><el-button type="primary" icon="el-icon-edit" circle></el-button></router-link>
-            <el-popconfirm title="确认删除此标签吗？" @onConfirm="deleteTag()"
+            <el-popconfirm title="确认删除此标签吗？" @confirm="deleteTag(tag.id)"
             ><el-button type="danger" icon="el-icon-delete" circle slot="reference"></el-button>
             </el-popconfirm>
           </div>
@@ -31,7 +31,7 @@ import Vue from 'vue';
 import {Component, Watch} from 'vue-property-decorator';
 import tagListModel from '@/models/tagListModel';
 
-tagListModel.fetch;
+tagListModel.fetch();
 
 @Component({
              components: {Types},
@@ -49,7 +49,10 @@ export default class Labels extends Vue {
     value === '-'?this.typeName ='支出' : this.typeName = '收入';
   }
 
-  deleteTag(){
+  deleteTag(id: number){
+    tagListModel.delete(id);
+    this.tags = tagListModel.data;
+    this.tagsType = this.tags.filter(tag => tag.type === this.type)
     return;
   }
 }
