@@ -43,7 +43,7 @@ export default class Types extends Vue {
     width: 50%;
     line-height: 50px;
     position: relative;
-    background: $color-Light;
+    background: $color-lowLight;
     display: flex;
     justify-content: center;
     align-items: center;
