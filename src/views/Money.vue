@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import Tags from '@/components/money/Tags.vue';
-import Types from '@/components/normal/Types.vue';
+import Types from '@/components/Types.vue';
 import Notes from '@/components/money/Notes.vue';
 import NumberPad from '@/components/money/NumberPad.vue';
 import Vue from 'vue';

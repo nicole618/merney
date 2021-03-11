@@ -26,7 +26,7 @@
 
 <script lang="ts">
 
-import Types from '@/components/normal/Types.vue';
+import Types from '@/components/Types.vue';
 import Vue from 'vue';
 import {Component, Watch} from 'vue-property-decorator';
 import tagListModel from '@/models/tagListModel';
