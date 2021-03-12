@@ -29,16 +29,15 @@
 import Types from '@/components/Types.vue';
 import Vue from 'vue';
 import {Component, Watch} from 'vue-property-decorator';
-import tagListModel from '@/models/tagListModel';
 
-tagListModel.fetch();
+
 
 @Component({
              components: {Types},
            })
 export default class Labels extends Vue {
   type: string = '-';
-  tags: Tag[] = tagListModel.data;
+  tags: Tag[] = window.tagList();
   tagsType = this.tags.filter(tag => tag.type === this.type);
   visible: boolean = false;
   typeName = '支出';
@@ -48,11 +47,11 @@ export default class Labels extends Vue {
     this.tagsType = this.tags.filter(tag => tag.type === value);
     value === '-'?this.typeName ='支出' : this.typeName = '收入';
   }
-
   deleteTag(id: number){
-    tagListModel.delete(id);
-    this.tags = tagListModel.data;
+    window.deleteTag(id);
+    this.tags = window.tagList();
     this.tagsType = this.tags.filter(tag => tag.type === this.type)
+    console.log(this.tagsType);
     return;
   }
 }

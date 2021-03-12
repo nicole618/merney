@@ -23,7 +23,6 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Notes from '@/components/money/Notes.vue';
-import tagListModel from '@/models/tagListModel';
 import Button from '@/components/Button.vue';
 import {createTagId} from '@/lib/createId';
 
@@ -34,7 +33,7 @@ export default class AddLabel extends Vue {
   myTag: Tag = {id: -1, name: '', textValue: '', type: ''};
   editAdd: string = '';
   typeName: string = '';
-  icons: string[] = tagListModel.getIcon();
+  icons: string[] = window.getIcon();
 
   created() {
     const route = this.$route.query;
@@ -51,7 +50,7 @@ export default class AddLabel extends Vue {
     const tagId = this.$route.params.id;
     if (tagId) {
       this.editAdd = '编辑';
-      const findTag = tagListModel.findTag(parseInt(tagId.slice(1)));
+      const findTag = window.findTag(parseInt(tagId.slice(1)));
       this.myTag.textValue = findTag.textValue;
       this.myTag.id = findTag.id;
       this.myTag.name = findTag.name;
@@ -75,11 +74,11 @@ export default class AddLabel extends Vue {
       return;
     }
     if (this.editAdd === '编辑') {
-      tagListModel.updateTag(this.myTag);
+      window.updateTag(this.myTag);
       this.goBack();
     } else if (this.editAdd === '新增') {
       this.myTag.id = createTagId();
-      tagListModel.addTag(this.myTag);
+      window.addTag(this.myTag);
       this.goBack();
     }
 

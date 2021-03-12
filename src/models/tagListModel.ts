@@ -1,17 +1,7 @@
 const localStorageKeyName: string = 'tagList';
-type TagListModel = {
-  data: Tag[];
-  fetch: () => Tag[];
-  save: () => void;
-  getIcon: () => string[];
-  getDefaultTag: () => Tag[];
-  addTag: (tag: Tag) => Tag;
-  findTag: (id: number) => Tag;
-  delete: (id: number) => string;
-  updateTag: (tag: Tag) => void;
-}
-const tagListModel: TagListModel = {
-  data: [],
+
+const tagListModel = {
+  data: [] as Tag[],
   fetch(){
     this.data = JSON.parse(window.localStorage.getItem(localStorageKeyName)|| JSON.stringify(this.getDefaultTag()));
     return this.data;
@@ -19,7 +9,7 @@ const tagListModel: TagListModel = {
   save() {
     window.localStorage.setItem(localStorageKeyName,JSON.stringify(this.data));
   },
-  delete(id) {
+  delete(id: number) {
     const tagIds = this.data.map(tag => tag.id === id);
     if (tagIds.length === 0){
       return '该标签不存在';
@@ -29,18 +19,18 @@ const tagListModel: TagListModel = {
       return '删除成功';
     }
   },
-  updateTag(tag){
-    const oldTag = this.findTag(tag.id);
+  updateTag(tag: Tag){
+    const oldTag: Tag = this.findTag(tag.id);
     oldTag.name = tag.name;
     oldTag.textValue = tag.textValue;
     this.save();
   },
-  addTag(tag){
+  addTag(tag: Tag){
     this.data.push(tag);
     this.save();
     return tag;
   },
-  findTag(id){
+  findTag(id: number){
     return this.data.filter(tag => tag.id === id)[0];
   },
   getIcon(){

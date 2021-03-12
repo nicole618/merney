@@ -15,4 +15,12 @@ type Tag = {
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Window {
+  tagList: () => Tag[];
+  recordList: () => RecordItem[];
+  deleteTag: (id: number) => void;
+  addTag: (tag: Tag) => Tag;
+  getIcon: () => string[];
+  findTag: (id: number) => Tag;
+  updateTag: (tag: Tag) => void;
+  addRecord: (record: RecordItem) => void;
 }
