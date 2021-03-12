@@ -26,8 +26,8 @@ import store from '@/store/index2';
              components: {DateTime, NumberPad, Notes, Types, Tags}
            })
 export default class Money extends Vue {
-  tags: Tag[] = store.tagList();
-  recordList: RecordItem[] = store.recordList();
+  tags: Tag[] = store.fetchTag();
+  recordList: RecordItem[] = store.fetchRecord();
   record: RecordItem = {tags: null, notes: '', dateTime: null, type: '-', amount: 0};
   tagsTye = this.tags.filter(tag=>tag.type === this.record.type)
   @Watch('record.type')
@@ -44,7 +44,7 @@ export default class Money extends Vue {
       this.$message('金额不能为空或分类不能为空');
       return;
     }
-    store.addRecord(this.record);
+    store.createRecord(this.record);
     this.record = {tags: null, notes: '', dateTime: null, type: '-', amount: 0};
   }
 }

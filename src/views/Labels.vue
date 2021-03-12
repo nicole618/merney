@@ -38,7 +38,7 @@ import store from '@/store/index2';
            })
 export default class Labels extends Vue {
   type: string = '-';
-  tags: Tag[] = store.tagList();
+  tags: Tag[] = store.fetchTag();
   tagsType = this.tags.filter(tag => tag.type === this.type);
   visible: boolean = false;
   typeName = '支出';
@@ -50,7 +50,7 @@ export default class Labels extends Vue {
   }
   deleteTag(id: number){
     store.deleteTag(id);
-    this.tags = store.tagList();
+    this.tags = store.fetchTag();
     this.tagsType = this.tags.filter(tag => tag.type === this.type)
     console.log(this.tagsType);
     return;
