@@ -18,6 +18,7 @@ import NumberPad from '@/components/money/NumberPad.vue';
 import Vue from 'vue';
 import {Component, Watch} from 'vue-property-decorator';
 import DateTime from '@/components/money/DateTime.vue';
+import store from '@/store/index2';
 
 
 
@@ -25,8 +26,8 @@ import DateTime from '@/components/money/DateTime.vue';
              components: {DateTime, NumberPad, Notes, Types, Tags}
            })
 export default class Money extends Vue {
-  tags = window.tagList();
-  recordList = window.recordList();
+  tags: Tag[] = store.tagList();
+  recordList: RecordItem[] = store.recordList();
   record: RecordItem = {tags: null, notes: '', dateTime: null, type: '-', amount: 0};
   tagsTye = this.tags.filter(tag=>tag.type === this.record.type)
   @Watch('record.type')
@@ -43,7 +44,7 @@ export default class Money extends Vue {
       this.$message('金额不能为空或分类不能为空');
       return;
     }
-    window.addRecord(this.record);
+    store.addRecord(this.record);
     this.record = {tags: null, notes: '', dateTime: null, type: '-', amount: 0};
   }
 }

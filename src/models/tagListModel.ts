@@ -1,3 +1,5 @@
+import {createTagId} from '@/lib/createId';
+
 const localStorageKeyName: string = 'tagList';
 
 const tagListModel = {
@@ -26,6 +28,7 @@ const tagListModel = {
     this.save();
   },
   addTag(tag: Tag){
+    tag.id = createTagId();
     this.data.push(tag);
     this.save();
     return tag;
