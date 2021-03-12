@@ -43,8 +43,7 @@ export default class Money extends Vue {
   saveRecord() {
     if (this.record.dateTime === null) this.record.dateTime = new Date();
     this.record.id = createRecordId();
-    const record2 = recordListModel.clone(this.record);
-    this.recordList.push(record2);
+    recordListModel.create(this.record);
     this.record = {tags: null, notes: '', dateTime: null, type: '-', amount: 0};
   }
 
