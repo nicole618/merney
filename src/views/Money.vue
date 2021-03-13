@@ -3,7 +3,7 @@
     <Layout>
       <Types :value.sync="record.type"/>
       <Tags :value.sync="record.tags" :date-source="tagsTye"/>
-      <DateTime :value.sync="record.dateTime"/>
+      <DateTime :value.sync="record.dateTime" date-time-type="date" date-time-format="yyyy-MM-dd"/>
       <Notes  :value.sync="record.notes" noteName="备注：" placeholder="请输入备注"/>
       <NumberPad :value="record.amount" @update:value="onUpdateAmount" @submit="saveRecord"/>
     </Layout>
@@ -28,7 +28,7 @@ import store from '@/store/index2';
 export default class Money extends Vue {
   tags: Tag[] = store.fetchTag();
   recordList: RecordItem[] = store.fetchRecord();
-  record: RecordItem = {tags: null, notes: '', dateTime: null, type: '-', amount: 0};
+  record: RecordItem = {tags: null, notes: '', dateTime: new Date(), type: '-', amount: 0};
   tagsTye = this.tags.filter(tag=>tag.type === this.record.type)
   @Watch('record.type')
   onRecordTypeChange(value: string){
@@ -45,7 +45,7 @@ export default class Money extends Vue {
       return;
     }
     store.createRecord(this.record);
-    this.record = {tags: null, notes: '', dateTime: null, type: '-', amount: 0};
+    this.record = {tags: null, notes: '', dateTime: new Date(), type: '-', amount: 0};
   }
 }
 </script>

@@ -9,7 +9,7 @@ type Tag = {
   tags:  Tag | null;
   notes: string;
   type: string;
-  dateTime: Date | null;
+  dateTime: Date;
   amount: number;
 }
 

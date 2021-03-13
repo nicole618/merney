@@ -3,9 +3,9 @@
     <label class="date textInput"><span><Icon name="date"/>日期：</span>
       <el-date-picker
           :value="value"
-          type="date"
+          :type="dateTimeType"
           class="myDate"
-          format="yyyy-MM-dd"
+          :format="dateTimeFormat"
           placeholder="请选择日期"
           @input="timeChange"
       >
@@ -21,6 +21,8 @@ import {Component, Prop} from 'vue-property-decorator';
 @Component
 export default class DateTime extends Vue {
   @Prop() readonly value!: Date | null;
+  @Prop() readonly dateTimeType!: string;
+  @Prop() readonly dateTimeFormat!: string;
   timeChange(value: Date){
     this.$emit('update:value',value)
   }
@@ -35,6 +37,7 @@ export default class DateTime extends Vue {
   padding:0 16px;
   border-bottom: 1px solid $border-color;
   align-items: center;
+  height: 42px;
   >span{
     display: flex;
     align-items: center;

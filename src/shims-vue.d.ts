@@ -8,8 +8,9 @@ declare module "*.svg" {
   export default content;
 }
 
-declare module 'vue-hash-calendar' {
-  const content: any
-  export = content
+declare module "vue-echarts" {
+  const content: any;
+  export default content;
 }
+
 
