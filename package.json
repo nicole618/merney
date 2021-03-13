@@ -1,5 +1,4 @@
 {
-  "name": "大瑶私人记账本",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@vue/composition-api": "^1.0.0-rc.5",
     "core-js": "^3.4.4",
     "dayjs": "^1.8.20",
@@ -33,7 +33,7 @@
     "@vue/cli-plugin-unit-jest": "^4.1.0",
     "@vue/cli-plugin-vuex": "^4.1.0",
     "@vue/cli-service": "^4.1.0",
-    "@vue/eslint-config-typescript": "^4.0.0",
+    "@vue/eslint-config-typescript": "^7.0.0",
     "@vue/test-utils": "1.0.0-beta.29",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",

@@ -62,13 +62,11 @@ export default class Statistics extends Vue {
   created() {
      this.groupedList();
   }
-
   mounted(){
     const main = document.getElementById('echarts') as HTMLElement;
     const width = document.documentElement.clientWidth;
     const main1 = main.querySelector('div') as HTMLElement;
     const main2 = main.querySelector('canvas') as HTMLElement;
-    console.log(main2);
     main.style.width = `${width}px`;
     main1.style.width = `${width}px`;
     main2.style.width = `${width}px`;
@@ -76,6 +74,7 @@ export default class Statistics extends Vue {
     main1.style.height = `${width}px`;
     main2.style.height = `${width}px`;
   }
+
 
 
   @Watch('query.type')
@@ -165,10 +164,12 @@ export default class Statistics extends Vue {
       }
     }
     for (let key in hashmap) {
+      if (hashmap.hasOwnProperty(key)){
       const obj = {name: '', value: 0};
       obj.name = key;
       obj.value = hashmap[key];
       this.echartsData.push(obj);
+      }
     }
   }
 
@@ -206,7 +207,6 @@ export default class Statistics extends Vue {
 }
 
 </script>
-
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
 .showEcharts {

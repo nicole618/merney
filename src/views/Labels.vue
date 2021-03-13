@@ -53,7 +53,6 @@ export default class Labels extends Vue {
     store.deleteTag(id);
     this.tags = store.fetchTag();
     this.tagsType = this.tags.filter(tag => tag.type === this.type)
-    console.log(this.tagsType);
     return;
   }
 }
