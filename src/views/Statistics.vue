@@ -5,7 +5,10 @@
       <DayType :value.sync="query.dayType"/>
       <DateTime :value.sync="query.dateTime" :date-time-type="query.dateTimeType"
                 :date-time-format="query.dateTimeFormat"/>
-      <Echarts :options="polar"/>
+      <div class="showEcharts" :class="echartsData.length !== 0 ? 'show': 'hide'">
+        <Echarts :options="x"/>
+      </div>
+      <NoData :class="echartsData.length === 0 ? 'show': 'hide'"/>
     </Layout>
   </div>
 </template>
@@ -18,24 +21,33 @@ import DateTime from '@/components/money/DateTime.vue';
 import DayType from '@/components/statistics/DayType.vue';
 import store from '@/store/index2';
 import dayjs from 'dayjs/esm';
-import Echarts from 'vue-echarts'
-import 'echarts/lib/chart/line'
-import 'echarts/lib/component/polar'
+import Echarts from 'vue-echarts';
+import 'echarts/lib/chart/pie';
+import 'echarts/lib/component/tooltip';
+import NoData from '@/views/NoData.vue';
+
+type Echarts = {
+  name: string;
+  value: number;
+}
 
 @Component({
-             components: {DayType, DateTime, Types,Echarts},
+             components: {NoData, DayType, DateTime, Types, Echarts},
            })
 export default class Statistics extends Vue {
-  query = {type: '-', dateTime: null, dayType: '1', dateTimeType: 'date', dateTimeFormat: 'yyyy-MM-dd'};
+  query = {type: '-', dateTime: '', dayType: '1', dateTimeType: 'date', dateTimeFormat: 'yyyy-MM-dd'};
   recordList: RecordItem[] = store.fetchRecord();
-  recordResult: RecordItem[] = [];
-
+  recordResult: RecordItem[] | undefined = [];
+  echartsData: Echarts[] = [];
+  noData: string = 'hide';
   created() {
     this.recordResult = this.groupedList();
   }
 
+
   @Watch('query.type')
   onChangeType() {
+    this.query.dateTime = '';
     this.groupedList();
   }
 
@@ -54,91 +66,118 @@ export default class Statistics extends Vue {
       this.query.dateTimeFormat = 'yyyy';
       this.groupedList();
     }
-    this.query.dateTime = null;
+    this.query.dateTime = '';
+  }
+
+  @Watch('query.dateTime')
+  onDateTimeChange() {
+    this.groupedList();
   }
 
   groupedList() {
+    this.echartsData = [];
     const recordByType = this.recordList.filter(record => record.type === this.query.type);
     if (recordByType.length === 0) {return []; }
-    const nowTime = new Date().toISOString();
-    const recordGroup: RecordItem[] = [];
+    let nowTime = this.query.dateTime;
+    if (this.query.dateTime === '') {
+      nowTime = new Date().toISOString();
+    }
+    const hashmap: any = {};
     for (let i = 0; i < recordByType.length; i++) {
       if (this.query.dayType === '1') {
         const recordTime = dayjs(recordByType[i].dateTime).format('YYYY-MM-DD');
         const oldTime = dayjs(nowTime).format('YYYY-MM-DD');
         if (recordTime === oldTime) {
-          recordGroup.push(recordByType[i]);
+          const oldType: string | undefined = recordByType[i]?.tags?.textValue;
+          if (oldType === undefined) return;
+          if (oldType in hashmap) {
+            hashmap[oldType] += recordByType[i].amount;
+          } else {
+            hashmap[oldType] = recordByType[i].amount;
+          }
         }
+
       } else if (this.query.dayType === '2') {
         const recordTime = dayjs(recordByType[i].dateTime).format('YYYY-MM');
         const oldTime = dayjs(nowTime).format('YYYY-MM');
         if (recordTime === oldTime) {
-          recordGroup.push(recordByType[i]);
+          const oldType: string | undefined = recordByType[i]?.tags?.textValue;
+          if (oldType === undefined) return;
+          if (oldType in hashmap) {
+            hashmap[oldType] += recordByType[i].amount;
+          } else {
+            hashmap[oldType] = recordByType[i].amount;
+          }
         }
       } else if (this.query.dayType === '3') {
         const recordTime = dayjs(recordByType[i].dateTime).format('YYYY');
         const oldTime = dayjs(nowTime).format('YYYY');
         if (recordTime === oldTime) {
-          recordGroup.push(recordByType[i]);
+          const oldType: string | undefined = recordByType[i]?.tags?.textValue;
+          if (oldType === undefined) return;
+          if (oldType in hashmap) {
+            hashmap[oldType] += recordByType[i].amount;
+          } else {
+            hashmap[oldType] = recordByType[i].amount;
+          }
         }
       }
     }
-    return this.recordResult = recordGroup;
-  }
-  get x() {
-    const data = [];
-    data()
-    {
-      const data: any[] = [];
-
-      for (let i = 0; i <= 360; i++) {
-        const t = i / 180 * Math.PI
-        const r = Math.sin(2 * t) * Math.cos(2 * t)
-        data.push([r, i])
-      }
+    for (let key in hashmap) {
+      const obj = {name: '', value: 0};
+      obj.name = key;
+      obj.value = hashmap[key];
+      this.echartsData.push(obj);
     }
+  }
+
+  get x() {
+
     return {
-        title: {
-          text: '极坐标双数值轴'
-        },
-        legend: {
-          data: ['line']
-        },
-        polar: {
-          center: ['50%', '54%']
-        },
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'cross'
+      title: {
+        left: 'center'
+      },
+      tooltip: {
+        trigger: 'item'
+      },
+      legend: {
+        orient: 'vertical',
+        left: 'left',
+      },
+      series: [
+        {
+          name: '访问来源',
+          type: 'pie',
+          radius: '50%',
+          data: this.echartsData,
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
           }
-        },
-        angleAxis: {
-          type: 'value',
-          startAngle: 0
-        },
-        radiusAxis: {
-          min: 0
-        },
-        series: [
-          {
-            coordinateSystem: 'polar',
-            name: 'line',
-            type: 'line',
-            showSymbol: false,
-            data: data
-          }
-        ],
-        animationDuration: 2000
-      }
+        }
+      ],
+      color: ['#eddcd1', '#d99061', '#fb5f03', '#f3eeeb', '#b49683', '#c6a932', '#d9e394', '#67c23a', '#946950', '#a7c4e2',],
+    };
   }
-  }
+}
 
 </script>
 
 <style lang="scss" scoped>
-#showEcharts {
-  width: 100%;
-  height: 200px;
+.showEcharts {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  &.hide{
+    display: none;
+  }
+  .echarts {
+    width: 100%;
+  }
 }
+
 </style>

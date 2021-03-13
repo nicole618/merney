@@ -2,6 +2,7 @@
   <div>
     <Layout>
       <Types :value.sync="type"/>
+      <NoData :class="tagsType.length === 0 ? 'show': 'hide'"/>
       <ol class="tagList hideScroll">
         <li v-for="tag in tagsType" :key="tag.id">
           <div class="tagLeft">
@@ -30,11 +31,11 @@ import Types from '@/components/Types.vue';
 import Vue from 'vue';
 import {Component, Watch} from 'vue-property-decorator';
 import store from '@/store/index2';
-
+import NoData from '@/views/NoData.vue';
 
 
 @Component({
-             components: {Types},
+             components: {NoData, Types},
            })
 export default class Labels extends Vue {
   type: string = '-';

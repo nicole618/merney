@@ -13,4 +13,12 @@ declare module "vue-echarts" {
   export default content;
 }
 
+declare module "echarts/lib/echarts" {
+  const content: any;
+  export default content;
+}
+
+
+
+
 
