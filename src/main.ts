@@ -20,3 +20,6 @@ new Vue({
         }).$mount('#app');
 
 
+if (document.documentElement.clientWidth > 500){
+  window.alert('请在手机上打开页面，以保证浏览效果');
+}

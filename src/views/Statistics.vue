@@ -5,8 +5,26 @@
       <DayType :value.sync="query.dayType"/>
       <DateTime :value.sync="query.dateTime" :date-time-type="query.dateTimeType"
                 :date-time-format="query.dateTimeFormat"/>
-      <div class="showEcharts" :class="echartsData.length !== 0 ? 'show': 'hide'">
-        <Echarts :options="x"/>
+      <div class="hideScroll statisticsHide"  :class="echartsData.length !== 0 ? 'show': 'hide'">
+      <div class="showEcharts">
+        <Echarts :options="x" id="echarts"/>
+      </div>
+      <ol class="statisticsOl">
+        <li class="statisticsHead">
+         <span>总金额</span>
+          <span>￥{{totalAmount}}</span>
+        </li>
+        <li v-for="s in recordResult">
+          <div class="statisticsLeft">
+            <Icon :name="s.tags.name"/>
+            {{s.tags.textValue}}
+            <span>￥{{s.amount}}</span>
+          </div>
+          <div class="statisticsRight oneLine">
+            {{s.notes}}
+          </div>
+        </li>
+      </ol>
       </div>
       <NoData :class="echartsData.length === 0 ? 'show': 'hide'"/>
     </Layout>
@@ -37,11 +55,26 @@ type Echarts = {
 export default class Statistics extends Vue {
   query = {type: '-', dateTime: '', dayType: '1', dateTimeType: 'date', dateTimeFormat: 'yyyy-MM-dd'};
   recordList: RecordItem[] = store.fetchRecord();
-  recordResult: RecordItem[] | undefined = [];
+  recordResult: RecordItem[] = [];
   echartsData: Echarts[] = [];
   noData: string = 'hide';
+  totalAmount: number = 0;
   created() {
-    this.recordResult = this.groupedList();
+     this.groupedList();
+  }
+
+  mounted(){
+    const main = document.getElementById('echarts') as HTMLElement;
+    const width = document.documentElement.clientWidth;
+    const main1 = main.querySelector('div') as HTMLElement;
+    const main2 = main.querySelector('canvas') as HTMLElement;
+    console.log(main2);
+    main.style.width = `${width}px`;
+    main1.style.width = `${width}px`;
+    main2.style.width = `${width}px`;
+    main.style.height = `${width}px`
+    main1.style.height = `${width}px`;
+    main2.style.height = `${width}px`;
   }
 
 
@@ -75,7 +108,9 @@ export default class Statistics extends Vue {
   }
 
   groupedList() {
+    this.recordResult = [];
     this.echartsData = [];
+    this.totalAmount = 0;
     const recordByType = this.recordList.filter(record => record.type === this.query.type);
     if (recordByType.length === 0) {return []; }
     let nowTime = this.query.dateTime;
@@ -88,6 +123,8 @@ export default class Statistics extends Vue {
         const recordTime = dayjs(recordByType[i].dateTime).format('YYYY-MM-DD');
         const oldTime = dayjs(nowTime).format('YYYY-MM-DD');
         if (recordTime === oldTime) {
+          this.totalAmount += recordByType[i].amount;
+          this.recordResult.push(recordByType[i]);
           const oldType: string | undefined = recordByType[i]?.tags?.textValue;
           if (oldType === undefined) return;
           if (oldType in hashmap) {
@@ -101,6 +138,8 @@ export default class Statistics extends Vue {
         const recordTime = dayjs(recordByType[i].dateTime).format('YYYY-MM');
         const oldTime = dayjs(nowTime).format('YYYY-MM');
         if (recordTime === oldTime) {
+          this.totalAmount += recordByType[i].amount;
+          this.recordResult.push(recordByType[i]);
           const oldType: string | undefined = recordByType[i]?.tags?.textValue;
           if (oldType === undefined) return;
           if (oldType in hashmap) {
@@ -113,6 +152,8 @@ export default class Statistics extends Vue {
         const recordTime = dayjs(recordByType[i].dateTime).format('YYYY');
         const oldTime = dayjs(nowTime).format('YYYY');
         if (recordTime === oldTime) {
+          this.totalAmount += recordByType[i].amount;
+          this.recordResult.push(recordByType[i]);
           const oldType: string | undefined = recordByType[i]?.tags?.textValue;
           if (oldType === undefined) return;
           if (oldType in hashmap) {
@@ -146,7 +187,7 @@ export default class Statistics extends Vue {
       },
       series: [
         {
-          name: '访问来源',
+          name: '金额统计',
           type: 'pie',
           radius: '50%',
           data: this.echartsData,
@@ -167,17 +208,46 @@ export default class Statistics extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/style/helper.scss";
 .showEcharts {
-  flex-grow: 1;
   display: flex;
   justify-content: center;
   align-content: center;
+
+}
+.statisticsHide{
   &.hide{
     display: none;
   }
-  .echarts {
-    width: 100%;
+}
+.statisticsOl{
+  &.hide{
+    display: none;
+  }
+  li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    background: $color-Light;
+    border-top: 1px solid $border-color;
+    &.statisticsHead{
+      background: $color-lowLight;
+    }
+    .statisticsRight{
+      flex-grow: 1;
+      margin-left: 20px;
+      text-align: right;
+      color: #999;
+
+    }
+    .statisticsLeft{
+      white-space: nowrap;
+      .icon{
+        color: #999;
+      }
+    }
+
   }
 }
-
 </style>

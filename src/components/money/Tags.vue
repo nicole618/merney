@@ -47,7 +47,6 @@ export default class Tags extends Vue{
 .tags {
   padding: 10px;
   background: white;
-  flex-grow: 1;
   > .current {
     display: flex;
     flex-wrap: wrap;

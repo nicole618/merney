@@ -119,7 +119,6 @@ header {
   padding: 0 16px;
   display: flex;
   flex-wrap: wrap;
-  flex-grow: 1;
   align-content: flex-start;
 
   li {

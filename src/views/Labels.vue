@@ -62,7 +62,6 @@ export default class Labels extends Vue {
 <style lang="scss" >
 @import "~@/assets/style/helper.scss";
 .tagList{
-  flex-grow: 1;
   padding: 16px 0;
   font-size: 14px;
     >li{
