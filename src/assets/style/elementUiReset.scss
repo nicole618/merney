@@ -21,7 +21,7 @@ body{
     background: $color-lowLight;
   }
   .el-date-table td.today span,.el-month-table td.today .cell,.el-month-table td .cell:hover,.el-year-table td.today .cell
-  ,.el-year-table td .cell:hover, .el-year-table td.current:not(.disabled) .cell{
+  ,.el-year-table td .cell:hover, .el-year-table td.current:not(.disabled) .cell,.el-month-table td.current:not(.disabled) .cell{
     color: $color-lowLight;
   }
   .el-date-table td.available:hover{
