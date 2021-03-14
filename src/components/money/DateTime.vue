@@ -5,6 +5,8 @@
           :value="value"
           :type="dateTimeType"
           class="myDate"
+          :editable="false"
+          key="picker_singer"
           :format="dateTimeFormat"
           placeholder="请选择日期"
           @input="timeChange"
