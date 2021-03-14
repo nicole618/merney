@@ -71,7 +71,11 @@ export default class AddLabel extends Vue {
   editOrAdd() {
     if (this.myTag.name === '' || this.myTag.textValue === '') {
       if(document.querySelectorAll('.el-message').length === 0) {
-        this.$message('标签名或标签图标不能为空');
+        this.$message({
+                        duration:1000,
+                        message:'标签名或标签图标不能为空',
+                        type:'warning'
+                      });
       }
       return;
     }

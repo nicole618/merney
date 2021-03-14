@@ -39,7 +39,11 @@ export default class Money extends Vue {
   saveRecord() {
     if (this.record.amount === 0 || this.record.tags === null){
       if(document.querySelectorAll('.el-message').length === 0){
-        this.$message('金额不能为空或分类不能为空');
+        this.$message({
+          duration:1000,
+          message:'金额不能为空或分类不能为空',
+          type:'warning'
+           });
       }
       return;
     }
@@ -48,7 +52,11 @@ export default class Money extends Vue {
     const oldType = this.record.type;
     this.record = {tags: null, notes: '', dateTime: new Date(), type: oldType, amount: 0};
     if(document.querySelectorAll('.el-message').length === 0) {
-      this.$message('保存成功');
+      this.$message({
+                      duration:1000,
+                      message:'保存成功',
+                      type:'success'
+                    });
     }
   }
 }
