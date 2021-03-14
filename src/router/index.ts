@@ -19,6 +19,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path:"/labels",
+    name:'/labels',
     component:Labels
   },
   {

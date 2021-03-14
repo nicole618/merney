@@ -65,7 +65,7 @@ export default class AddLabel extends Vue {
   }
 
   goBack() {
-    this.$router.go(-1);
+    this.$router.push({ name: '/labels', params: { addBeforeType: this.myTag.type }});
   }
 
   editOrAdd() {

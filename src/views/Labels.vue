@@ -44,6 +44,13 @@ export default class Labels extends Vue {
   visible: boolean = false;
   typeName = '支出';
 
+  created(){
+    const routeParams = this.$route.params.addBeforeType;
+    if(routeParams !== undefined){
+      this.type = routeParams;
+    }
+  }
+
   @Watch('type')
   onRecordTypeChange(value: string){
     this.tagsType = this.tags.filter(tag => tag.type === value);
