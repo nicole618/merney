@@ -21,13 +21,11 @@ import DateTime from '@/components/money/DateTime.vue';
 import store from '@/store/index2';
 
 
-
 @Component({
              components: {DateTime, NumberPad, Notes, Types, Tags}
            })
 export default class Money extends Vue {
   tags: Tag[] = store.fetchTag();
-  recordList: RecordItem[] = store.fetchRecord();
   record: RecordItem = {tags: null, notes: '', dateTime: new Date(), type: '-', amount: 0};
   tagsTye = this.tags.filter(tag=>tag.type === this.record.type)
   @Watch('record.type')
@@ -38,14 +36,20 @@ export default class Money extends Vue {
   onUpdateAmount(value: string) {
     this.record.amount = parseFloat(value);
   }
-
   saveRecord() {
     if (this.record.amount === 0 || this.record.tags === null){
-      this.$message('金额不能为空或分类不能为空');
+      if(document.querySelectorAll('.el-message').length === 0){
+        this.$message('金额不能为空或分类不能为空');
+      }
       return;
     }
+
     store.createRecord(this.record);
-    this.record = {tags: null, notes: '', dateTime: new Date(), type: '-', amount: 0};
+    const oldType = this.record.type;
+    this.record = {tags: null, notes: '', dateTime: new Date(), type: oldType, amount: 0};
+    if(document.querySelectorAll('.el-message').length === 0) {
+      this.$message('保存成功');
+    }
   }
 }
 </script>

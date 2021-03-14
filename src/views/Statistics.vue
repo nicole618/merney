@@ -7,7 +7,7 @@
                 :date-time-format="query.dateTimeFormat"/>
       <div class="hideScroll statisticsHide"  :class="echartsData.length !== 0 ? 'show': 'hide'">
       <div class="showEcharts">
-        <Echarts :options="x" id="echarts"/>
+        <Echarts :options="x"/>
       </div>
       <ol class="statisticsOl">
         <li class="statisticsHead">
@@ -62,18 +62,7 @@ export default class Statistics extends Vue {
   created() {
      this.groupedList();
   }
-  mounted(){
-    const main = document.getElementById('echarts') as HTMLElement;
-    const width = document.documentElement.clientWidth;
-    const main1 = main.querySelector('div') as HTMLElement;
-    const main2 = main.querySelector('canvas') as HTMLElement;
-    main.style.width = `${width}px`;
-    main1.style.width = `${width}px`;
-    main2.style.width = `${width}px`;
-    main.style.height = `${width}px`
-    main1.style.height = `${width}px`;
-    main2.style.height = `${width}px`;
-  }
+
 
 
 
