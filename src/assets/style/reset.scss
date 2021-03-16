@@ -58,10 +58,6 @@ input:focus,button:focus{
   align-content: center;
 }
 body .el-picker-panel{
-  width: 70%;
-  .el-picker-panel__content{
-    width: calc(100% - 30px);
-  }
   .el-date-table td{
     padding: 0;
   }

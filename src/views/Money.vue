@@ -2,7 +2,7 @@
   <div>
     <Layout>
       <Types :value.sync="record.type"/>
-      <Tags :value.sync="record.tags" :date-source="tagsTye"/>
+      <Tags :value.sync="record.tags" :date-source="tagsTye" :recordType="record.type"/>
       <DateTime :value.sync="record.dateTime" date-time-type="date" date-time-format="yyyy-MM-dd"/>
       <Notes  :value.sync="record.notes" noteName="备注：" placeholder="请输入备注"/>
       <NumberPad :value="record.amount" @update:value="onUpdateAmount" @submit="saveRecord"/>

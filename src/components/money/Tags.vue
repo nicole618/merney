@@ -10,11 +10,11 @@
 
       <li>
         <div class="tagIcon">
-          <router-link to="/labels">
+          <router-link :to="{ name: '/labels', params: { addBeforeType: recordType }}">
           <Icon name="add"/>
           </router-link>
         </div>
-        <span><router-link to="/labels">编辑分类</router-link></span>
+        <span><router-link :to="{ name: '/labels', params: { addBeforeType: recordType }}">编辑分类</router-link></span>
       </li>
 
     </ol>
@@ -27,6 +27,7 @@ import {Component,Prop} from 'vue-property-decorator';
 
 @Component
 export default class Tags extends Vue{
+  @Prop() recordType!: string;
   @Prop() dateSource: string[] | undefined;
   @Prop() readonly value!: Tag;
   select(tag: Tag){
