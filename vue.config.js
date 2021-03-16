@@ -1,7 +1,7 @@
 const path = require('path');
 module.exports ={
   publicPath: process.env.NODE_ENV === 'production'
-    ? '/merney-vue/'
+    ? '/merney/'
     : '/',
   lintOnSave: false,
   chainWebpack:config =>{
