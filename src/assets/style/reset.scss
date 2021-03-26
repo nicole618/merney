@@ -37,7 +37,7 @@ button,input{
 input:focus,button:focus{
   outline: none;
 }
-.clearfix::after{
+.clearfix::after{ 
   content: '';
   display: block;
   clear: both;
