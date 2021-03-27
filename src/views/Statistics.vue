@@ -62,10 +62,6 @@ export default class Statistics extends Vue {
   created() {
      this.groupedList();
   }
-
-
-
-
   @Watch('query.type')
   onChangeType() {
     this.query.dateTime = '';

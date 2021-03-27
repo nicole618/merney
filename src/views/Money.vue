@@ -5,7 +5,7 @@
       <Tags :value.sync="record.tags" :date-source="tagsTye" :recordType="record.type"/>
       <DateTime :value.sync="record.dateTime" date-time-type="date" date-time-format="yyyy-MM-dd"/>
       <Notes  :value.sync="record.notes" noteName="备注：" placeholder="请输入备注"/>
-      <NumberPad :value="record.amount" @update:value="onUpdateAmount" @submit="saveRecord"/>
+      <NumberPad :value="record.amount" @update:value="onUpdateAmount" @submit="saveRecord" :change-amount="changeAmount"/>
     </Layout>
   </div>
 </template>
@@ -26,6 +26,7 @@ import store from '@/store/index2';
            })
 export default class Money extends Vue {
   tags: Tag[] = store.fetchTag();
+  changeAmount: Boolean = false;
   record: RecordItem = {tags: null, notes: '', dateTime: new Date(), type: '-', amount: 0};
   tagsTye = this.tags.filter(tag=>tag.type === this.record.type)
   @Watch('record.type')
@@ -41,14 +42,15 @@ export default class Money extends Vue {
       if(document.querySelectorAll('.el-message').length === 0){
         this.$message({
           duration:1000,
-          message:'金额不能为空或分类不能为空',
+          message:'记账金额或记账分类不能为空',
           type:'warning'
            });
       }
       return;
     }
-
     store.createRecord(this.record);
+    this.changeAmount = true;
+    setTimeout(()=>this.changeAmount = false,1000)
     const oldType = this.record.type;
     this.record = {tags: null, notes: '', dateTime: new Date(), type: oldType, amount: 0};
     if(document.querySelectorAll('.el-message').length === 0) {
