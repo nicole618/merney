@@ -81,9 +81,23 @@ export default class AddLabel extends Vue {
     }
     if (this.editAdd === '编辑') {
       store.updateTag(this.myTag);
+      if(document.querySelectorAll('.el-message').length === 0){
+        this.$message({
+                        duration:1000,
+                        message:'编辑标签成功',
+                        type:'success'
+                      });
+      }
       this.goBack();
     } else if (this.editAdd === '新增') {
       store.addTag(this.myTag);
+      if(document.querySelectorAll('.el-message').length === 0){
+        this.$message({
+                        duration:1000,
+                        message:'新增标签成功',
+                        type:'success'
+                      });
+      }
       this.goBack();
     }
 
